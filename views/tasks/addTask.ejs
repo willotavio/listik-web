@@ -16,9 +16,12 @@
                     <h3>Add a task</h3>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="save" method="post">
+                        <label for="taskTiel">Title:</label>
                         <input type="text" name="taskTitle" class="form-control" required>
+                        <label for="taskTiel">Description:</label>
                         <input type="text" name="taskDescription" class="form-control" required>
+                        <label for="taskTiel">Deadline:</label>
                         <input type="date" name="taskDeadline" class="form-control" required>
                         <br>
                         <button type="submit" class="btn btn-success">Add</button>
@@ -28,5 +31,5 @@
         </div>
     </main>
 </body>
-    <%- include('./../partials/footer.ejs') %>
+<%- include('./../partials/footer.ejs') %>
 </html>

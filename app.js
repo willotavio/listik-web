@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.static('./public'));
+app.use(express.static('public/'));
 app.use(express.urlencoded({
     extended: true
 }));
@@ -17,13 +17,12 @@ connection.authenticate()
         console.log(err);
     });
 
-const taskModel = require('./tasks/taskModel');
-const taskController = require('./tasks/taskController');
-app.use('/', taskController);
-
 app.get('/', (req, res) => {
     res.render('home');
 });
+
+const tasksController = require('./tasks/taskController');
+app.use('/', tasksController);
 
 app.listen(3000, () => {
     console.log("Server On!");

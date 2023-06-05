@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./../partials/head.ejs') %>
+    <title>Home</title>
+</head>
+<body>
+    <%- include('./../partials/nav.ejs') %>
+    
+    <div class="container">
+        <div class="card container-fluid">
+            <div class="car-header">
+                <h3>Welcome! Here's your to do list</h3>
+                <a href="/tasks/new" class="btn btn-dark">Add a Task</a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Deadline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<%- include('./../partials/footer.ejs') %>
+</html>

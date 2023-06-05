@@ -14,7 +14,6 @@
         <div class="card container-fluid">
             <div class="car-header">
                 <h3>Welcome! Here's your to do list</h3>
-                <a href="/tasks/new" class="btn btn-dark">Add a Task</a>
             </div>
             <div class="card-body">
                 <% if(tasks.length > 0) {%>
@@ -30,10 +29,10 @@
                         <tbody>
                             <% tasks.forEach((task) => { %>
                                 <tr>
-                                    <th><%= task.id %></th>
-                                    <th><%= task.title %></th>
-                                    <th><%= task.description %></th>
-                                    <th><%= task.deadline %></th>
+                                    <td><%= task.id %></td>
+                                    <td><%= task.title %></td>
+                                    <td><%= task.description %></td>
+                                    <td><%= task.deadline %></td>
                                 </tr>    
                             <% }) %> 
                         </tbody>

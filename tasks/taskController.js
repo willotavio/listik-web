@@ -4,15 +4,18 @@ const router = express.Router();
 const Task = require('./taskModel');
 
 router.get('/tasks', (req, res) => {
-    res.render('tasks/tasksHome');
+    Task.findAll({
+        raw: true
+    }).then((tasks) => {
+        console.log(tasks);
+        res.render('tasks/tasksHome', {
+            tasks: tasks
+        });
+    });
 });
 
 router.get('/tasks/new', (req, res) => {
-    Task.findAll({
-        raw: true
-    }).then((result) => {
-        res.render('tasks/addTask', result);
-    });
+    res.render('tasks/addTask');
 });
 
 router.post('/tasks/save', (req, res) => {
@@ -24,7 +27,7 @@ router.post('/tasks/save', (req, res) => {
         description: description,
         deadline: deadline
     }).then(() => {
-        res.redirect('tasks/');
+        res.redirect('/tasks');
     });
 });
 

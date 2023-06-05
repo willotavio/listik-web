@@ -8,10 +8,18 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
+const connection = require('./database/connection');
+connection.authenticate()
+    .then(() => {
+        console.log("succesfully connected!");
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
+const taskModel = require('./tasks/taskModel');
 const taskController = require('./tasks/taskController');
 app.use('/', taskController);
-
 
 app.get('/', (req, res) => {
     res.render('home');

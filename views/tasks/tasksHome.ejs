@@ -24,6 +24,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Deadline</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +34,13 @@
                                     <td><%= task.title %></td>
                                     <td><%= task.description %></td>
                                     <td><%= task.deadline %></td>
-                                </tr>    
+                                    <td>
+                                        <form action="/tasks/delete" method="post">
+                                            <input type="text" name="taskId" value="<%= task.id %>" class="form-control" hidden></input>
+                                            <button type="submit" class="btn btn-danger">X</button>    
+                                        </form>
+                                    </td>
+                                </tr>
                             <% }) %> 
                         </tbody>
                     </table>
@@ -42,9 +49,7 @@
                 <% } %>
             </div>
         </div>
-
     </div>
-
 </body>
 <%- include('./../partials/footer.ejs') %>
 </html>

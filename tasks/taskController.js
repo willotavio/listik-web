@@ -41,4 +41,33 @@ router.post('/tasks/delete', (req, res) => {
     });
 });
 
+router.get('/tasks/edit/:id', (req, res) => {
+    const taskId = req.params.id;
+    if(!isNaN(taskId)){
+        Task.findByPk(taskId).then((task) => {
+            if(task){
+                res.render('tasks/editTask', {task: task});
+            }
+            else{
+                res.redirect('/tasks');
+            }
+        });
+    }
+    else{
+        res.redirect('/tasks');
+    }
+});
+
+router.post('/tasks/edit/save', (req, res) => {
+    const taskId = req.body.taskId;
+    const taskTitle = req.body.taskTitle;
+    const taskDescription = req.body.taskDescription;
+    const taskDeadline = req.body.taskDeadline;
+    Task.update({title: taskTitle, description: taskDescription, deadline: taskDeadline}, {
+        where: {id: taskId}
+    }).then(() => {
+        res.redirect('/tasks');
+    });
+});
+
 module.exports = router;

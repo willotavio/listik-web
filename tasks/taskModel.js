@@ -11,7 +11,7 @@ const Task = connection.define('tasks', {
         allowNull: false
     },
     deadline: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
     }
 });

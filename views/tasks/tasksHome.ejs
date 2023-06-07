@@ -34,8 +34,9 @@
                                     <td><%= task.title %></td>
                                     <td><%= task.description %></td>
                                     <td><%= task.deadline %></td>
-                                    <td>
-                                        <form action="/tasks/delete" method="post">
+                                    <td class="row">
+                                        <a href="/tasks/edit/<%= task.id %>" class="btn btn-warning">[|]</a>
+                                        <form action="/tasks/delete" method="POST" onsubmit="confirmDelete(event, this)">
                                             <input type="text" name="taskId" value="<%= task.id %>" class="form-control" hidden></input>
                                             <button type="submit" class="btn btn-danger">X</button>    
                                         </form>
@@ -52,4 +53,12 @@
     </div>
 </body>
 <%- include('./../partials/footer.ejs') %>
+<script>
+    function confirmDelete(event, form){
+        event.preventDefault();
+        if(confirm('tu quer deletar?')){
+            form.submit();
+        }
+    }
+</script>
 </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./../partials/head.ejs') %>
+    <title>Edit Task</title>
+</head>
+<body>
+    <%- include('./../partials/nav.ejs') %>
+    <main>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Edit a task</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/tasks/edit/save" method="POST">
+                        <input type="text" name="taskId" hidden value="<%= task.id %>">
+                        <label for="taskTiel">Title:</label>
+                        <input type="text" name="taskTitle" class="form-control" value="<%= task.title %>" required>
+                        <label for="taskTiel">Description:</label>
+                        <input type="text" name="taskDescription" class="form-control" value="<%= task.description %>" required>
+                        <label for="taskTiel">Deadline:</label>
+                        <input type="date" name="taskDeadline" class="form-control" value="<%= task.deadline %>" required>
+                        <br>
+                        <button type="submit" class="btn btn-success">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<%- include('./../partials/footer.ejs') %>
+</html>

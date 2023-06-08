@@ -11,8 +11,8 @@
     <%- include('./../partials/nav.ejs') %>
     
     <div class="container">
-        <div class="card container-fluid">
-            <div class="car-header">
+        <div class="card">
+            <div class="card-header">
                 <h3>Welcome! Here's your to do list</h3>
             </div>
             <div class="card-body">
@@ -28,12 +28,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% tasks.forEach((task) => { %>
+                            <% tasks.forEach((task) => { let { id, taskTitle, taskDescription, taskDeadline } = task%>
                                 <tr>
-                                    <td><%= task.id %></td>
-                                    <td><%= task.taskTitle %></td>
-                                    <td><%= task.taskDescription %></td>
-                                    <td><%= task.taskDeadline %></td>
+                                    <td><%= id %></td>
+                                    <td><%= taskTitle %></td>
+                                    <td><%= taskDescription %></td>
+                                    <td><%= taskDeadline %></td>
                                     <td>
                                         <div class="d-flex justify-content-around">
                                             <a href="/tasks/edit/<%= task.id %>" class="btn btn-warning btn-sm">[|]</a>

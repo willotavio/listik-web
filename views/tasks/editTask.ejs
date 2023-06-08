@@ -24,12 +24,14 @@
                         <input type="text" name="taskDescription" class="form-control" value="<%= task.taskDescription %>" required>
                         <label for="taskTiel">Deadline:</label>
                         <input type="date" name="taskDeadline" class="form-control" value="<%= task.taskDeadline %>" required>
+                        <br>
                         <select name="taskComplete">
                             <option value="0">Incomplete</option>
                             <option value="1" <% if(task.taskComplete == 1) { %> selected <% } %>>Complete</option>
                         </select>
-                        <br>
+                        <hr>
                         <button type="submit" class="btn btn-success">Edit</button>
+                        <a href="/tasks" class="btn btn-danger">Cancel</a>
                     </form>
                 </div>
             </div>

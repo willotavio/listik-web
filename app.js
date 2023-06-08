@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
 
 const tasksController = require('./tasks/taskController');
 app.use('/', tasksController);
+const userController = require('./user/userController');
+app.use('/', userController);
 
 app.listen(3000, () => {
     console.log("Server On!");

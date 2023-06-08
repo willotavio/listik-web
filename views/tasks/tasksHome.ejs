@@ -31,9 +31,9 @@
                             <% tasks.forEach((task) => { %>
                                 <tr>
                                     <td><%= task.id %></td>
-                                    <td><%= task.title %></td>
-                                    <td><%= task.description %></td>
-                                    <td><%= task.deadline %></td>
+                                    <td><%= task.taskTitle %></td>
+                                    <td><%= task.taskDescription %></td>
+                                    <td><%= task.taskDeadline %></td>
                                     <td class="row">
                                         <a href="/tasks/edit/<%= task.id %>" class="btn btn-warning">[|]</a>
                                         <form action="/tasks/delete" method="POST" onsubmit="confirmDelete(event, this)">

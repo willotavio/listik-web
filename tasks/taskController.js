@@ -5,7 +5,7 @@ const Task = require('./taskModel');
 
 router.get('/tasks', (req, res) => {
     Task.findAll({
-        raw: true
+        raw: true, where: {taskComplete: 0}
     }).then((tasks) => {
         res.render('tasks/tasksHome', {
             tasks: tasks
@@ -18,13 +18,14 @@ router.get('/tasks/new', (req, res) => {
 });
 
 router.post('/tasks/save', (req, res) => {
-    const title = req.body.taskTitle;
-    const description = req.body.taskDescription;
-    const deadline = req.body.taskDeadline;
+    const taskTitle = req.body.taskTitle;
+    const taskDescription = req.body.taskDescription;
+    const taskDeadline = req.body.taskDeadline;
     Task.create({
-        title: title,
-        description: description,
-        deadline: deadline
+        taskTitle: taskTitle,
+        taskDescription: taskDescription,
+        taskDeadline: taskDeadline,
+        taskComplete: false
     }).then(() => {
         res.redirect('/tasks');
     });
@@ -63,7 +64,8 @@ router.post('/tasks/edit/save', (req, res) => {
     const taskTitle = req.body.taskTitle;
     const taskDescription = req.body.taskDescription;
     const taskDeadline = req.body.taskDeadline;
-    Task.update({title: taskTitle, description: taskDescription, deadline: taskDeadline}, {
+    const taskComplete = req.body.taskComplete;
+    Task.update({taskTitle: taskTitle, taskDescription: taskDescription, taskDeadline: taskDeadline, taskComplete: taskComplete}, {
         where: {id: taskId}
     }).then(() => {
         res.redirect('/tasks');

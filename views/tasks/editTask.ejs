@@ -19,11 +19,15 @@
                     <form action="/tasks/edit/save" method="POST">
                         <input type="text" name="taskId" hidden value="<%= task.id %>">
                         <label for="taskTiel">Title:</label>
-                        <input type="text" name="taskTitle" class="form-control" value="<%= task.title %>" required>
+                        <input type="text" name="taskTitle" class="form-control" value="<%= task.taskTitle %>" required>
                         <label for="taskTiel">Description:</label>
-                        <input type="text" name="taskDescription" class="form-control" value="<%= task.description %>" required>
+                        <input type="text" name="taskDescription" class="form-control" value="<%= task.taskDescription %>" required>
                         <label for="taskTiel">Deadline:</label>
-                        <input type="date" name="taskDeadline" class="form-control" value="<%= task.deadline %>" required>
+                        <input type="date" name="taskDeadline" class="form-control" value="<%= task.taskDeadline %>" required>
+                        <select name="taskComplete">
+                            <option value="0">Incomplete</option>
+                            <option value="1" <% if(task.taskComplete == 1) { %> selected <% } %>>Complete</option>
+                        </select>
                         <br>
                         <button type="submit" class="btn btn-success">Edit</button>
                     </form>

@@ -2,16 +2,20 @@ const Sequelize = require('sequelize');
 const connection = require('../database/connection');
 
 const Task = connection.define('tasks', {
-    title: {
+    taskTitle: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    description: {
+    taskDescription: {
         type: Sequelize.TEXT,
         allowNull: false
     },
-    deadline: {
+    taskDeadline: {
         type: Sequelize.DATEONLY,
+        allowNull: false
+    },
+    taskComplete: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
     }
 });

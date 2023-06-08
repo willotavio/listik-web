@@ -13,6 +13,16 @@ router.get('/tasks', (req, res) => {
     });
 });
 
+router.get('/tasks/completed', (req, res) => {
+    Task.findAll({
+        raw: true, where: {taskComplete: 1}
+    }).then((tasks) => {
+        res.render('tasks/completedTasks', {
+            tasks: tasks
+        });
+    });
+});
+
 router.get('/tasks/new', (req, res) => {
     res.render('tasks/addTask');
 });

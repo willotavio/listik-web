@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const session = require('express-session');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public/'));
@@ -7,6 +8,11 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.json());
+
+app.use(session({
+    secret: "piqueriquinhoportuga",
+    cookie: { maxAge: 604800000 }
+}));
 
 const connection = require('./database/connection');
 connection.authenticate()
@@ -18,7 +24,8 @@ connection.authenticate()
     });
 
 app.get('/', (req, res) => {
-    res.render('home');
+    const userSession = req.session.userSession;
+    res.render('home', {userSession});
 });
 
 const tasksController = require('./tasks/taskController');

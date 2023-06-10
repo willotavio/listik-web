@@ -2,13 +2,20 @@
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <div class="container-fluid">
             <a href="/" class="navbar-brand">LisTik</a>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="/tasks">My Tasks</a>
-                    <a class="nav-link" href="/tasks/new">Add Task</a>
-                    <a class="nav-link" href="/tasks/completed">Completed Tasks</a>
+            <% if(userSession){ %>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                            <a class="nav-link" href="/tasks">My Tasks</a>
+                            <a class="nav-link" href="/tasks/new">Add Task</a>
+                            <a class="nav-link" href="/tasks/completed">Completed Tasks</a>
+                    </div>
+                    <ul class="navbar-nav ml-auto">
+                        <li><a class="nav-link"><%= userSession.userName %></a></li>
+                        <li><a class="nav-link" href="/logout">Logout</a></li>
+                    </ul>
+                    
                 </div>
-            </div>
+            <% } %>
         </div>
     </nav>
 </header>

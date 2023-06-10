@@ -18,6 +18,7 @@ router.post('/login', (req, res) => {
         if(result){
             bcrypt.compare(userPassword, result.userPassword).then((match) => {
                 if(match){
+                    req.session.userSession = result
                     res.redirect('/tasks');
                 }
                 else{
@@ -60,6 +61,11 @@ router.post('/signup', (req, res) => {
         }
     })
 
+});
+
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
 });
 
 module.exports = router;

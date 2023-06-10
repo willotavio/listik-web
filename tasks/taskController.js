@@ -3,7 +3,10 @@ const router = express.Router();
 
 const Task = require('./taskModel');
 
-router.get('/tasks', (req, res) => {
+const auth = require('./../middlewares/auth');
+const userSession = require('./../middlewares/userSession');
+
+router.get('/tasks', userSession, auth, (req, res) => {
     Task.findAll({
         raw: true, where: {taskComplete: 0}
     }).then((tasks) => {
@@ -13,7 +16,7 @@ router.get('/tasks', (req, res) => {
     });
 });
 
-router.get('/tasks/completed', (req, res) => {
+router.get('/tasks/completed', userSession, auth, (req, res) => {
     Task.findAll({
         raw: true, where: {taskComplete: 1}
     }).then((tasks) => {
@@ -23,11 +26,11 @@ router.get('/tasks/completed', (req, res) => {
     });
 });
 
-router.get('/tasks/new', (req, res) => {
+router.get('/tasks/new', userSession, auth, (req, res) => {
     res.render('tasks/addTask');
 });
 
-router.post('/tasks/save', (req, res) => {
+router.post('/tasks/save', userSession, auth, (req, res) => {
     const taskTitle = req.body.taskTitle;
     const taskDescription = req.body.taskDescription;
     const taskDeadline = req.body.taskDeadline;
@@ -41,7 +44,7 @@ router.post('/tasks/save', (req, res) => {
     });
 });
 
-router.post('/tasks/delete', (req, res) => {
+router.post('/tasks/delete', userSession, auth, (req, res) => {
     const id = req.body.taskId;
     Task.destroy({
         where: {
@@ -52,7 +55,7 @@ router.post('/tasks/delete', (req, res) => {
     });
 });
 
-router.get('/tasks/edit/:id', (req, res) => {
+router.get('/tasks/edit/:id', userSession, auth, (req, res) => {
     const taskId = req.params.id;
     if(!isNaN(taskId)){
         Task.findByPk(taskId).then((task) => {
@@ -69,7 +72,7 @@ router.get('/tasks/edit/:id', (req, res) => {
     }
 });
 
-router.post('/tasks/edit/save', (req, res) => {
+router.post('/tasks/edit/save', userSession, auth, (req, res) => {
     const taskId = req.body.taskId;
     const taskTitle = req.body.taskTitle;
     const taskDescription = req.body.taskDescription;

@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const connection = require('../database/connection');
 
+const User = require('./../user/userModel');
+
 const Task = connection.define('tasks', {
     taskTitle: {
         type: Sequelize.STRING,
@@ -19,6 +21,9 @@ const Task = connection.define('tasks', {
         allowNull: false
     }
 });
+
+Task.belongsTo(User);
+User.hasMany(Task);
 
 Task.sync({force: false});
 

@@ -4,11 +4,12 @@ const router = express.Router();
 const Task = require('./taskModel');
 
 const auth = require('./../middlewares/auth');
-const userSession = require('./../middlewares/userSession');
+const user = require('./../middlewares/userSession');
 
-router.get('/tasks', userSession, auth, (req, res) => {
+router.get('/tasks', user, auth, (req, res) => {
+    const userId = req.session.userSession.id;
     Task.findAll({
-        raw: true, where: {taskComplete: 0}
+        raw: true, where: {taskComplete: 0, userId: userId}
     }).then((tasks) => {
         res.render('tasks/tasksHome', {
             tasks: tasks
@@ -16,9 +17,10 @@ router.get('/tasks', userSession, auth, (req, res) => {
     });
 });
 
-router.get('/tasks/completed', userSession, auth, (req, res) => {
+router.get('/tasks/completed', user, auth, (req, res) => {
+    const userId = req.session.userSession.id;
     Task.findAll({
-        raw: true, where: {taskComplete: 1}
+        raw: true, where: {taskComplete: 1, userId: userId}
     }).then((tasks) => {
         res.render('tasks/completedTasks', {
             tasks: tasks
@@ -26,25 +28,27 @@ router.get('/tasks/completed', userSession, auth, (req, res) => {
     });
 });
 
-router.get('/tasks/new', userSession, auth, (req, res) => {
+router.get('/tasks/new', user, auth, (req, res) => {
     res.render('tasks/addTask');
 });
 
-router.post('/tasks/save', userSession, auth, (req, res) => {
+router.post('/tasks/save', auth, (req, res) => {
     const taskTitle = req.body.taskTitle;
     const taskDescription = req.body.taskDescription;
     const taskDeadline = req.body.taskDeadline;
+    const userId = req.session.userSession.id;
     Task.create({
         taskTitle: taskTitle,
         taskDescription: taskDescription,
         taskDeadline: taskDeadline,
-        taskComplete: false
+        taskComplete: false,
+        userId: userId
     }).then(() => {
         res.redirect('/tasks');
     });
 });
 
-router.post('/tasks/delete', userSession, auth, (req, res) => {
+router.post('/tasks/delete', user, auth, (req, res) => {
     const id = req.body.taskId;
     Task.destroy({
         where: {
@@ -55,7 +59,7 @@ router.post('/tasks/delete', userSession, auth, (req, res) => {
     });
 });
 
-router.get('/tasks/edit/:id', userSession, auth, (req, res) => {
+router.get('/tasks/edit/:id', user, auth, (req, res) => {
     const taskId = req.params.id;
     if(!isNaN(taskId)){
         Task.findByPk(taskId).then((task) => {
@@ -72,7 +76,7 @@ router.get('/tasks/edit/:id', userSession, auth, (req, res) => {
     }
 });
 
-router.post('/tasks/edit/save', userSession, auth, (req, res) => {
+router.post('/tasks/edit/save', user, auth, (req, res) => {
     const taskId = req.body.taskId;
     const taskTitle = req.body.taskTitle;
     const taskDescription = req.body.taskDescription;

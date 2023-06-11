@@ -73,4 +73,34 @@ router.post('/profile/edit', async (req, res) => {
     }
 });
 
+router.post('/profile/password/new', async (req, res) => {
+    try{
+        const userId = req.body.userId;
+        const currentPassword = req.body.currentPassword;
+        const newPassword = req.body.newPassword;
+        const confirmPassword = req.body.confirmPassword;
+    
+        if(newPassword === confirmPassword){
+            const correctPassword = await bcrypt.compare(currentPassword, req.session.userSession.userPassword);
+            if(correctPassword){
+                const salt = 10;
+                const password = await bcrypt.hash(newPassword, salt);
+                await User.update({userPassword: password}, {
+                    where: {id: userId}
+                });
+                res.redirect('/profile');
+            }
+            else{
+                res.redirect('/profile/edit');
+            }
+        }
+        else{
+            res.redirect('/profile/edit');
+        }
+    }
+    catch(err){
+        res.redirect('/profile/edit');
+    }
+});
+
 module.exports = router;

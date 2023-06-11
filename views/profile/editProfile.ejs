@@ -1,0 +1,28 @@
+    <%- include('./../partials/head') %>
+    <title>Edit Profile</title>
+</head>
+<body>
+    <%- include('./../partials/nav') %>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Edit your profile</h3>
+            </div>
+            <div class="card-body">
+                <form action="/profile/edit" method="POST">
+                    <input type="number" name="userId" value="<%= userSession.id %>" hidden>
+                    <label for="userName">User Name:</label>
+                    <input type="text" name="userName" value="<%= userSession.userName %>" class="form-control" required>
+                    <label for="userEmail">Email:</label>
+                    <input type="email" name="userEmail" value="<%= userSession.userEmail %>" class="form-control" required>
+                    <label for="userPassword">Password:</label>
+                    <input type="password" name="userPassword" class="form-control" required>
+                    <br>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<%- include('./../partials/footer') %>
+    

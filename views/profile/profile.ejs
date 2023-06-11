@@ -1,0 +1,21 @@
+    <%- include('./../partials/head') %>
+    <title>Profile</title>
+</head>
+<body>
+    <%- include('./../partials/nav') %>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3><%= userSession.userName %></h3>
+            </div>
+            <div class="card-body">
+                <p>Email: <%= userSession.userEmail %></p>
+                <p>User Since: <%= userSession.createdAt.slice(0,10) %></p>
+                <p>Tasks: <%= tasks.length %></p>
+                <p>Uncompleted tasks: <%= uncompletedTasks %></p>
+                <p>Completed Tasks: <%= completedTasks %></p>
+                <p><a href="/profile/edit" class="btn btn-dark">Edit Profile</a></p>
+            </div>
+        </div>
+    </div>
+<%- include('./../partials/footer') %>

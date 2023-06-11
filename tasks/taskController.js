@@ -3,8 +3,8 @@ const router = express.Router();
 
 const Task = require('./taskModel');
 
-const auth = require('./../middlewares/auth');
 const user = require('./../middlewares/userSession');
+const auth = require('./../middlewares/auth');
 
 router.get('/tasks', user, auth, (req, res) => {
     const userId = req.session.userSession.id;

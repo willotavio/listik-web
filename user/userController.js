@@ -4,7 +4,11 @@ const bcrypt = require('bcryptjs');
 
 const User = require('./userModel');
 
-router.get('/login', (req, res) => {
+const user = require('./../middlewares/userSession');
+const auth = require('./../middlewares/auth');
+const notAuth = require('./../middlewares/notAuth');
+
+router.get('/login', user, notAuth, (req, res) => {
     res.render('auth/login');
 });
 
@@ -32,7 +36,7 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.get('/signup', (req, res) => {
+router.get('/signup', user, notAuth, (req, res) => {
     res.render('auth/signup');
 });
 
@@ -63,7 +67,7 @@ router.post('/signup', (req, res) => {
 
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', user, auth, (req, res) => {
     req.session.destroy();
     res.redirect('/');
 });

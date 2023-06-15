@@ -89,4 +89,21 @@ router.post('/tasks/edit/save', user, auth, (req, res) => {
     });
 });
 
+router.post('/tasks/complete', user, auth, (req, res) => {
+    const taskId = req.body.taskId;
+    Task.findByPk(taskId).then((task) => {
+        if(task.taskComplete == 0){
+            Task.update({taskComplete: 1}, {where: {id: taskId}}).then(() => {
+                res.redirect('/tasks');
+            });
+        }
+        else{
+            Task.update({taskComplete: 0}, {where: {id: taskId}}).then(() => {
+                res.redirect('/tasks/completed');
+            });
+        }
+    });
+    
+});
+
 module.exports = router;
